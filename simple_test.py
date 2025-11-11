@@ -24,7 +24,7 @@ loader = PyMuPDFLayoutLoader(
     # This would convert the first 2 pages only:
     ## pages = [0,1],
 
-    show_progress=True,
+    show_progress=False,
     
 )
 
@@ -32,8 +32,7 @@ loader = PyMuPDFLayoutLoader(
 # Main function
 def main():
 
-    print(f"****************")
-    print(langchain_pymupdf_layout.version())
+    print(f"Using langchain-pymupdf-layout version: ",langchain_pymupdf_layout.version())
 
     documents = loader.load()
     

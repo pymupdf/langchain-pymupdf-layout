@@ -1,5 +1,7 @@
 # langchain-pymupdf-layout
-An integration package connecting PyMuPDF Layout to LangChain. Load PDF content to Markdown using AI-based, CPU only, layout analysis.
+An integration package connecting PyMuPDF Layout to LangChain.
+
+Load PDF content to Markdown using AI-based, CPU only, layout analysis.
 
 ## Installation
 
@@ -18,7 +20,15 @@ pip install dist/langchain_pymupdf_layout-0.1.0-py3-none-any.whl
 ```python
 from langchain_pymupdf_layout import version
 
-print(version())  # Output: Hello from langchain_pymupdf_layout!
+print(version())  # Output: version number
+```
+
+## Run the simple test
+
+Uses the `PyMuPDFLayoutLoader` to load a smple PDF and prints the results.
+
+```python
+python simple_test.py
 ```
 
 ## Development

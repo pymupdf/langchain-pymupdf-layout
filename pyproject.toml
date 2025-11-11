@@ -13,6 +13,7 @@ requires-python = ">=3.7"
 
 dependencies = [
     "langchain-core>=1.0.0,<2.0.0",
+    "pymupdf>=0.26.6",
     "pymupdf-layout>=0.26.6",
-    "pymupdf4llm>=0.1.8"
+    "pymupdf4llm>=0.2.0"
 ]
