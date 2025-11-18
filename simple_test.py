@@ -23,9 +23,10 @@ loader = PyMuPDFLayoutLoader(
     # By default, all pages are converted.
     # This would convert the first 2 pages only:
     ## pages = [0,1],
-
-    show_progress=False,
     
+    # Remove header & footer contetn from pages
+    header = False,
+    footer = False
 )
 
 
