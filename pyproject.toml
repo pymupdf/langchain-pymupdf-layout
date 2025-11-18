@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "An integration package connecting PyMuPDF Layout to LangChain. Load PDF content to Markdown using AI-based, CPU only, layout analysis."
 readme = "README.md"
 authors = [{name = "Jamie Lemon", email = "jamie.lemon@artifex.com"}]
-license = "GNU AFFERO GPL 3.0"
+license = {text = "Polyform Non-Commercial"}
 requires-python = ">=3.7"
 
 dependencies = [
