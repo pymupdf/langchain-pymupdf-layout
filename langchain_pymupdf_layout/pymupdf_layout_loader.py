@@ -150,5 +150,3 @@ class PyMuPDFLayoutLoader(BasePDFLoader):
     def load(self, **kwargs: Any) -> list[Document]:
         return list(self._lazy_load(**kwargs))
 
-    def lazy_load(self) -> Iterator[Document]:
-        yield from self._lazy_load()
