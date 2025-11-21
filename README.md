@@ -20,9 +20,9 @@ For more detailed information visit the [official PyMuPDF Layout documentation w
 
 - Python 3.11 or higher
 - LangChain Core v1.0.0 or higher
-- PyMuPDF v0.26.6 or higher
+- PyMuPDF v1.26.6 or higher
 - PyMuPDF4LLM v0.2.0 or higher
-- PyMuPDF Layout c0.26.6 or higher
+- PyMuPDF Layout v1.26.6 or higher
 
 ## Installation
 
