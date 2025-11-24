@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "langchain-pymupdf-layout"
-version = "0.1.1"
+version = "0.1.2"
 description = "An integration package connecting PyMuPDF Layout to LangChain. Load PDF content to Markdown using AI-based, CPU only, layout analysis."
 readme = "README.md"
 authors = [{name = "Jamie Lemon", email = "jamie.lemon@artifex.com"}]
@@ -12,7 +12,7 @@ license = {file = "LICENSE"}
 requires-python = ">=3.10"
 
 dependencies = [
-    "langchain-core>=1.0.0,<2.0.0",
+    "langchain==0.3.26",
     "pymupdf>=1.26.6",
     "pymupdf-layout>=1.26.6",
     "pymupdf4llm>=0.2.0"
