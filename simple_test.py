@@ -1,32 +1,22 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import langchain_pymupdf_layout
 
 from langchain_pymupdf_layout import PyMuPDFLayoutLoader
 
 loader = PyMuPDFLayoutLoader(
-    #file_path="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     file_path="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
-
-    # Headers to use for GET request to download a file from a web path
-    # (if file_path is a web url)
-    ## headers=None,
 
     # Password for opening encrypted PDF
     ## password=None,
  
     # Additional keyword arguments to pass directly to the
-    # underlying `pymupdf4llm.to_markdown` function.
-    # See: https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/api.html#to_markdown
-    # And: https://pymupdf.readthedocs.io/en/latest/pymupdf-layout/index.html#pymupdf-layout-and-parameter-caveats
+    # underlying `Document.to_markdown` PyMuPDF function.
+    # See: https://pymupdf.readthedocs.io/en/latest/document.html#Document.to_markdown
 
     # Define which pages of the PDF you want to convert to Markdown.
     # By default, all pages are converted.
     # This would convert the first 2 pages only:
     ## pages = [0,1],
-    
-    # Remove header & footer contetn from pages
-    header = False,
-    footer = False
 )
 
 

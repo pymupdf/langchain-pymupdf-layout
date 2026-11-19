@@ -1,14 +1,12 @@
-"""Contains PyMuPDF4LLM parser class to parse blobs from PDFs."""
-
 import logging
 import threading
 
 try:
-    import pymupdf.layout 
+    import pymupdf
 except ImportError:
     raise ImportError(
-        "pymupdf.layout package not found, please install it "
-        "with `pip install pymupdf-layout`"
+        "pymupdf package not found, please install it "
+        "with `pip install pymupdf`"
     )
 
 from datetime import datetime
@@ -87,7 +85,7 @@ def _purge_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
 
 
 class PyMuPDFLayoutParser(BaseBlobParser):
-    """Parse a blob from a PDF using `PyMuPDF4LLM` library with `PyMuPDF Layout` imported.
+    """Parse a blob from a PDF using `PyMuPDF
 
     Examples:
         Setup:
@@ -135,14 +133,12 @@ class PyMuPDFLayoutParser(BaseBlobParser):
         password: Optional[str] = None,
         **pymupdf_layout_kwargs,
     ) -> None:
-        """Initialize a parser to extract PDF content in markdown using PyMuPDF4LLM.
+        """Initialize a parser to extract PDF content in markdown using PyMuPDF.
 
         Args:
             password: Optional password for opening encrypted PDFs.
             **pymupdf_layout_kwargs: Additional keyword arguments to pass directly to the
-                `pymupdf4llm.to_markdown` function. 
-                See: https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/api.html#to_markdown
-                And: https://pymupdf.readthedocs.io/en/latest/pymupdf-layout/index.html#pymupdf-layout-and-parameter-caveats
+                `doc.to_markdown` function. 
 
         Returns:
             This method does not directly return data. Use the `parse` or `lazy_parse`
@@ -177,7 +173,7 @@ class PyMuPDFLayoutParser(BaseBlobParser):
             blob: The blob from a PDF document to parse.
 
         Raises:
-            ImportError: If the `pymupdf4llm` package is not found.
+            ImportError: If the `pymupdf` package is not found.
 
         Yield:
             An iterator over the parsed documents with PDF content.
@@ -203,7 +199,7 @@ class PyMuPDFLayoutParser(BaseBlobParser):
         doc: pymupdf.Document,
         #pages: list | range | None = None,
     ) -> str:
-        """Get the content of the page in markdown using PyMuPDF4LLM 
+        """Get the content of the page in markdown using PyMuPDF
 
         Args:
             doc: The PyMuPDF document object.
@@ -213,20 +209,19 @@ class PyMuPDFLayoutParser(BaseBlobParser):
             str: The content of the page in markdown.
         """
         try:
-            import pymupdf4llm 
+            import pymupdf 
         except ImportError:
             raise ImportError(
-                "pymupdf4llm package not found, please install it "
-                "with `pip install pymupdf4llm`"
+                "pymupdf package not found, please install it "
+                "with `pip install pymupdf`"
             )
 
-        pymupdf4llm_params: dict[str, Any] = {
+        pymupdf_params: dict[str, Any] = {
             **self.pymupdf_layout_kwargs,
         }
 
-        md = pymupdf4llm.to_markdown(
-            doc,
-            **pymupdf4llm_params,
+        md = doc.to_markdown(
+            **pymupdf_params,
         )
         
         return md
@@ -244,8 +239,8 @@ class PyMuPDFLayoutParser(BaseBlobParser):
         metadata = _purge_metadata(
             {
                 **{
-                    "producer": "PyMuPDF Layout",
-                    "creator": "PyMuPDF Layout",
+                    "producer": "PyMuPDF",
+                    "creator": "PyMuPDF",
                     "creationdate": "",
                     "source": blob.source,
                     "file_path": blob.source,

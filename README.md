@@ -1,12 +1,14 @@
 # langchain-pymupdf-layout
 
-An integration package connecting **PyMuPDF Layout** to **LangChain**.
+A document loader with [PyMuPDF & PyMuPDF Layout](https://pymupdf.readthedocs.io/en/latest/rag.html#pymupdf-pymupdf-layout) for **LangChain**.
+
+PyMuPDF is a layout-aware document engine for AI and a feature-rich Python toolkit for extracting, rendering and editing PDFs and other documents. Since version 2.0, its ML-based layout analysis turns PDFs into high-quality Markdown for RAG and agents, running fast on CPU and grounding every result to its source page.
 
 Load PDF content to Markdown using AI-based, CPU only, layout analysis.
 
-[![LangChain](https://img.shields.io/badge/LangChain-v1.0+-blue)](https://github.com/langchain-ai/langchain)
+[![LangChain](https://img.shields.io/badge/LangChain-v1.5.2+-blue)](https://github.com/langchain-ai/langchain)
 [![Python version](https://img.shields.io/badge/python-3.11+-blue)](https://pypi.org/project/pymupdf-layout/)
-[![License PolyForm Noncommercial](https://img.shields.io/badge/license-Polyform_Noncommercial-purple)](https://polyformproject.org/licenses/noncommercial/1.0.0/)
+[![License AGPL](https://img.shields.io/github/license/pymupdf/pymupdf)](https://github.com/pymupdf/PyMuPDF/blob/master/COPYING)
 
 ## Features
 
@@ -14,15 +16,13 @@ Load PDF content to Markdown using AI-based, CPU only, layout analysis.
 - 🧐 Advanced document page layout understanding, including semantic markup for titles, headings, headers, footers, tables, images and text styling
 - 🔍 Detect and isolate header and footer patterns on each page
 
-For more detailed information visit the [official PyMuPDF Layout documentation webpage](https://pymupdf.readthedocs.io/en/latest/pymupdf-layout/index.html).
+For more detailed information visit the [official PyMuPDF Layout documentation webpage](https://pymupdf.readthedocs.io/en/latest/rag.html#pymupdf-pymupdf-layout).
 
 ## Requirements
 
 - Python 3.11 or higher
-- LangChain Core v1.0.0 or higher
-- PyMuPDF v1.26.6 or higher
-- PyMuPDF4LLM v0.2.0 or higher
-- PyMuPDF Layout v1.26.6 or higher
+- LangChain Core v1.5.2 or higher
+- PyMuPDF v2.1 or higher
 
 ## Installation
 
@@ -35,23 +35,33 @@ pip install -U langchain-pymupdf-layout
 
 ## Usage
 
-You can easily integrate and use the PyMuPDF Layout Loader in your Python application for loading and parsing PDFs. 
+You can easily integrate and use the PyMuPDF Layout Loader in your Python application for loading and parsing PDFs.
 
-Below is an example of how to set up and utilize this loader:
+Below is an example of how to set up and utilize this loader.
+
+The example uses `RecursiveCharacterTextSplitter` to chunk the loaded documents. In LangChain v1.0+ the text splitters are a separate package, which is not installed with `langchain`, so install it first, either with the `examples` extra:
+
+```bash
+pip install -U "langchain-pymupdf-layout[examples]"
+```
+
+or directly:
+
+```bash
+pip install -U langchain-text-splitters
+```
 
 ```python
 from langchain_pymupdf_layout import version
 
 print(version())  # Output: version number
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from langchain_pymupdf_layout import PyMuPDFLayoutLoader
 
 loader = PyMuPDFLayoutLoader(
     file_path="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
-    show_progress=False,  
-    # See other loader options on https://pymupdf.readthedocs.io/en/latest/pymupdf-layout/index.html#pymupdf-layout-and-parameter-caveats
 )
 
 documents = loader.load()
