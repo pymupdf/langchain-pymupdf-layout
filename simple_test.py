@@ -1,10 +1,12 @@
+import pprint
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import langchain_pymupdf_layout
 
 from langchain_pymupdf_layout import PyMuPDFLayoutLoader
 
 loader = PyMuPDFLayoutLoader(
-    file_path="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
+    file_path="https://arxiv.org/pdf/2607.11276",
 
     # Password for opening encrypted PDF
     ## password=None,
@@ -26,6 +28,11 @@ def main():
     print(f"Using langchain-pymupdf-layout version: ",langchain_pymupdf_layout.version())
 
     documents = loader.load()
+    
+    import pprint
+    pprint.pp(documents[0].metadata)
+
+    print(documents[0].page_content[:302])
     
     # Chunk the documents
     text_splitter = RecursiveCharacterTextSplitter(

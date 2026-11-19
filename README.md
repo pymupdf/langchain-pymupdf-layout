@@ -61,7 +61,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_pymupdf_layout import PyMuPDFLayoutLoader
 
 loader = PyMuPDFLayoutLoader(
-    file_path="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
+    file_path="https://arxiv.org/pdf/2607.11276" 
 )
 
 documents = loader.load()
