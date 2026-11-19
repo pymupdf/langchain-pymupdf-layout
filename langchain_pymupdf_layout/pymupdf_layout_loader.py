@@ -6,7 +6,6 @@ from abc import ABC
 from pathlib import PurePath
 from typing import (
     TYPE_CHECKING,
-    Any,
     Iterator,
     Optional,
     Union,
@@ -126,27 +125,19 @@ class PyMuPDFLayoutLoader(BasePDFLoader):
         )
  
 
-    def _lazy_load(self, **kwargs: Any) -> Iterator[Document]:
-        """Lazily parse a blob from a PDF document.
+    def lazy_load(self) -> Iterator[Document]:
+        """Lazily load the PDF as Markdown.
 
-        Args:
-            blob: The blob from a PDF document to parse.
+        `load()` and `alazy_load()` from `BaseLoader` are built on this method.
 
-        Yield:
-            An iterator over the parsed documents with PDF content.
+        Yields:
+            The parsed document(s) with the PDF content as Markdown.
         """
-        if kwargs:
-            logger.warning(
-                f"Received runtime arguments {kwargs}. Passed runtime args to `load`"
-                " are completely ignored."
-                " Please pass arguments during initialization instead."
-            )
         if self.web_path:
-            blob = Blob.from_data(open(self.file_path, "rb").read(), path=self.web_path)
+            # Read from the downloaded temp file, but report the original URL
+            # as the document source.
+            blob = Blob.from_path(self.file_path, metadata={"source": self.web_path})
         else:
             blob = Blob.from_path(self.file_path)
         yield from self.parser.lazy_parse(blob)
-
-    def load(self, **kwargs: Any) -> list[Document]:
-        return list(self._lazy_load(**kwargs))
 

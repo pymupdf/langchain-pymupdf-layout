@@ -185,14 +185,22 @@ class PyMuPDFLayoutParser(BaseBlobParser):
                     doc = pymupdf.open(file_path)
                 else:
                     doc = pymupdf.open(stream=file_path, filetype="pdf")
-                if doc.is_encrypted:
-                    doc.authenticate(self.password)
-                doc_metadata = self._extract_metadata(doc, blob)
-
-                yield Document(
+                try:
+                    if doc.needs_pass and not doc.authenticate(self.password or ""):
+                        raise ValueError(
+                            "The PDF is password protected and the password is "
+                            "missing or incorrect."
+                        )
+                    document = Document(
                         page_content=self._get_md(doc),
-                        metadata=_validate_metadata(doc_metadata),
+                        metadata=_validate_metadata(self._extract_metadata(doc, blob)),
                     )
+                finally:
+                    doc.close()
+
+        # Yield outside the lock so a caller that stops iterating early
+        # doesn't leave the lock held.
+        yield document
 
     def _get_md(
         self,
