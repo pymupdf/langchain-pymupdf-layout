@@ -1,6 +1,6 @@
 # langchain-pymupdf-layout
 
-A document loader with [PyMuPDF & PyMuPDF Layout](https://pymupdf.readthedocs.io/en/latest/rag.html#pymupdf-pymupdf-layout) for **LangChain**.
+A document loader with [PyMuPDF & PyMuPDF Layout](https://pymupdf.readthedocs.io/en/latest/rag.html?utm_source=github&utm_medium=referral&utm_campaign=github#pymupdf-pymupdf-layout) for **LangChain**.
 
 PyMuPDF is a layout-aware document engine for AI and a feature-rich Python toolkit for extracting, rendering and editing PDFs and other documents. Since version 2.0, its ML-based layout analysis turns PDFs into high-quality Markdown for RAG and agents, running fast on CPU and grounding every result to its source page.
 
@@ -17,7 +17,7 @@ Load PDF content to Markdown using AI-based, CPU only, layout analysis.
 - 🔍 Detect and isolate header and footer patterns on each page
 - 📍 One LangChain document per layout element or per section, each with its page and position in the PDF, or optionally the whole PDF as one Markdown document
 
-For more detailed information visit the [official PyMuPDF Layout documentation webpage](https://pymupdf.readthedocs.io/en/latest/rag.html#pymupdf-pymupdf-layout).
+For more detailed information visit the [official PyMuPDF Layout documentation webpage](https://pymupdf.readthedocs.io/en/latest/rag.html?utm_source=github&utm_medium=referral&utm_campaign=github#pymupdf-pymupdf-layout).
 
 ## Requirements
 
@@ -46,7 +46,7 @@ By default (`mode="json"`) it uses this layout analysis, from `Document.to_json`
 
 Use `layout_chunking` to choose how the content is grouped.
 
-If you'd rather have one document containing the whole PDF as Markdown, use `mode="markdown"`. See [Markdown mode](#markdown-mode).
+If you'd rather have one document containing the whole PDF as Markdown, use `mode="markdown"`. See [one Markdown document](#one-markdown-document).
 
 ### One document per layout element
 
@@ -163,5 +163,5 @@ In Markdown mode, any other keyword arguments are passed to `Document.to_markdow
 - In both modes, every document also has the PDF's own metadata, such as `source`, `total_pages` and `creationdate`.
 - `header=False` and `footer=False` work in JSON mode too: they leave out page headers and footers.
 - Other keyword arguments are passed to `Document.to_json` (for example `pages`, `use_ocr`, `force_ocr` and `ocr_language`). Options that only apply to Markdown output are ignored in JSON mode.
-- See [tests/layout_test.py](tests/layout_test.py) for a full example, including drawing an element's position onto the PDF page.
+- See [layout_test.py](https://github.com/pymupdf/langchain-pymupdf-layout/blob/main/tests/layout_test.py) for a full example, including drawing an element's position onto the PDF page.
 
