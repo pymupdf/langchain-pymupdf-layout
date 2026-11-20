@@ -7,6 +7,7 @@ from pathlib import PurePath
 from typing import (
     TYPE_CHECKING,
     Iterator,
+    Literal,
     Optional,
     Union,
 )
@@ -115,23 +116,41 @@ class PyMuPDFLayoutLoader(BasePDFLoader):
         *,
         headers: Optional[dict] = None,
         password: Optional[str] = None,
+        mode: Literal["json", "markdown"] = "json",
+        layout_chunking: Literal["box", "section"] = "box",
         **pymupdf_layout_kwargs,
     ) -> None:
-        
+        """Initialize the loader.
+
+        Args:
+            file_path: A local path or URL of a PDF file.
+            headers: Headers to use for the GET request if `file_path` is a URL.
+            password: Optional password for opening encrypted PDFs.
+            mode: ``"json"`` (default) for several documents from the layout
+                analysis, each with its page and position, or ``"markdown"``
+                for one Markdown document per PDF. See `PyMuPDFLayoutParser`.
+            layout_chunking: In json mode, ``"box"`` (default) for one
+                document per layout box, or ``"section"`` for one per section.
+            **pymupdf_layout_kwargs: Passed to `Document.to_json` or
+                `Document.to_markdown`.
+        """
         super().__init__(file_path, headers=headers)
         self.parser = PyMuPDFLayoutParser(
             password=password,
+            mode=mode,
+            layout_chunking=layout_chunking,
             **pymupdf_layout_kwargs,
         )
  
 
     def lazy_load(self) -> Iterator[Document]:
-        """Lazily load the PDF as Markdown.
+        """Lazily load the PDF as LangChain documents.
 
         `load()` and `alazy_load()` from `BaseLoader` are built on this method.
 
         Yields:
-            The parsed document(s) with the PDF content as Markdown.
+            In json mode, one document per layout box or section. In markdown
+            mode, one document with the whole PDF as Markdown.
         """
         if self.web_path:
             # Read from the downloaded temp file, but report the original URL

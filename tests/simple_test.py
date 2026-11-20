@@ -8,6 +8,9 @@ from langchain_pymupdf_layout import PyMuPDFLayoutLoader
 loader = PyMuPDFLayoutLoader(
     file_path="https://arxiv.org/pdf/2607.11276",
 
+    # One Markdown document for the whole PDF (the default is mode="json")
+    mode="markdown",
+
     # Password for opening encrypted PDF
     ## password=None,
  
@@ -25,14 +28,9 @@ loader = PyMuPDFLayoutLoader(
 # Main function
 def main():
 
-    print(f"Using langchain-pymupdf-layout version: ",langchain_pymupdf_layout.version())
-
     documents = loader.load()
-    
-    import pprint
-    pprint.pp(documents[0].metadata)
 
-    print(documents[0].page_content[:302])
+    print(documents[0].page_content[:100]) # print some Markdown content
     
     # Chunk the documents
     text_splitter = RecursiveCharacterTextSplitter(
@@ -41,11 +39,8 @@ def main():
     )
     chunks = text_splitter.split_documents(documents)
 
-    print(f"Loaded {len(documents)} document(s)")
-    print(f"Created {len(chunks)} chunk(s)")
-
-    content = chunks[0].page_content
-    print(f"\ncontent:\n{content}")
+    print(f"\nLoaded {len(documents)} document(s)")
+    print(f"\nCreated {len(chunks)} chunk(s)")
         
     return chunks
 

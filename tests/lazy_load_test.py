@@ -24,6 +24,9 @@ def lazy_load_all(sources: list[str]) -> Iterator[Document]:
         loader = PyMuPDFLayoutLoader(
             file_path=source,
 
+            # One Markdown document per PDF (the default is mode="json")
+            mode="markdown",
+
             # Remove header & footer content from pages
             header=False,
             footer=False,
@@ -55,10 +58,6 @@ def main():
         print(f"  chunks:     {len(doc_chunks)}")
 
     print(f"\nCreated {len(chunks)} chunk(s) in total from {len(PDF_SOURCES)} PDF(s)")
-
-    # Each chunk keeps its document's metadata, so you can tell which PDF it came from.
-    #print(f"\nFirst chunk of the last PDF ({chunks[-len(doc_chunks)].metadata['source']}):")
-    #print(chunks[-len(doc_chunks)].page_content)
 
     return chunks
 

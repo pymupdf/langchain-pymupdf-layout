@@ -1,8 +1,8 @@
 """
-Langchain PyMuPDF Layout - Load PDF content to Markdown using AI-based, CPU only, layout analysis
+Langchain PyMuPDF Layout - Load PDF content using AI-based, CPU only, layout analysis
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 def version():
     return __version__
